@@ -12,7 +12,7 @@ const MainLayout = ({children}) => {
             <Menubar
                 model={[
                     {
-                        label: 'Home',
+                        label: 'SaunaSim',
                         icon: (options) => <FontAwesomeIcon icon={faHouse} {...options?.iconProps} />,
                         command: () => navigate("/")
                     },
@@ -41,7 +41,7 @@ const MainLayout = ({children}) => {
                     </div>
                 </>}
             />
-            <div className={"flex-grow-1 overflow-scroll"}>
+            <div className={"flex-grow-1 overflow-scroll mt-3"}>
                 {children}
             </div>
         </div>
