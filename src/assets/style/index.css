@@ -1,3 +1,7 @@
 
-/* Tailwind CSS */
-@import "tailwindcss";
+@layer tailwind-base, primereact, tailwind-utilities;
+
+/* IMPORTANT: In "styled" mode you must add the PrimeReact Theme here. Do NOT include in "unstyled" mode */
+@import 'primereact/resources/themes/lara-dark-blue/theme.css' layer(primereact);
+@import "tailwindcss/preflight.css" layer(tailwind-base);
+@import "tailwindcss/utilities.css" layer(tailwind-utilities);
