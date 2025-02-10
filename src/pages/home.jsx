@@ -48,7 +48,7 @@ const HomePage = () => {
     }
 
     return (
-        <div className={"h-full flex flex-col justify-center items-center w-full md:w-1/2 mx-auto"}>
+        <div className={"h-full flex flex-col justify-evenly max-w-200 mx-auto"}>
             <Card title={<h1 className={"text-6xl font-bold flex justify-center"}>SaunaSim</h1>}>
                 <p className={"text-xl font-bold"}>
                     SaunaSim is an ATC Training tool that simulates an aircraft with a full FMS and autopilot.

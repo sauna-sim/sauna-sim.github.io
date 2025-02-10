@@ -8,7 +8,7 @@ import {classNames} from "primereact/utils";
 const MainLayout = ({children}) => {
     const navigate = useNavigate();
     return (
-        <div className={"p-2 w-full h-screen xl:w-4/5 2xl:w-3/5 mx-auto flex flex-col"}>
+        <div className={"p-2 w-full h-screen max-w-300 mx-auto flex flex-col"}>
             <Menubar
                 model={[
                     {
@@ -41,7 +41,7 @@ const MainLayout = ({children}) => {
                     </div>
                 </>}
             />
-            <div className={"flex-grow-1"}>
+            <div className={"flex-grow-1 overflow-scroll"}>
                 {children}
             </div>
         </div>
