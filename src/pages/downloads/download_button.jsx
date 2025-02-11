@@ -5,8 +5,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCloudDownload} from "@fortawesome/free-solid-svg-icons/faCloudDownload";
 import {useNavigate} from "react-router";
 
-const DownloadButton = ({type, downloads, primary}) => {
-    const [arch, setArch] = useState(Architecture.x64.key);
+const DownloadButton = ({type, downloads, primary, defaultArch}) => {
+    const [arch, setArch] = useState(defaultArch);
     const navigate = useNavigate();
 
     const onDownloadClick = (downloadUrl) => {

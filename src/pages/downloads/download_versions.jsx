@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import {getReleases} from "../../actions/github_actions.js";
 import {DataView} from "primereact/dataview";
 import {Paginator} from "primereact/paginator";
+import DownloadVersionItem from "./download_version_item.jsx";
+import {Skeleton} from "primereact/skeleton";
 
 const DownloadVersions = () => {
     const [page, setPage] = useState(0);
@@ -24,8 +26,7 @@ const DownloadVersions = () => {
             if (lastPage !== page + 1) {
                 totalRecords = lastPage * perPage;
             }
-            console.log(totalRecords);
-            console.log(lastPage);
+
             setTotalRows(totalRecords);
             setReleases(response.data);
             setLoading(false);
@@ -33,7 +34,6 @@ const DownloadVersions = () => {
     }, [page, perPage]);
 
     const handlePageChange = (event) => {
-        console.log(event);
         setPage(event.page);
         setPerPage(event.rows);
     }
@@ -46,20 +46,46 @@ const DownloadVersions = () => {
                     content: () => ({className: "rounded-t-md"})
                 }}
                 value={releases}
-                loading={loading}
                 layout={"list"}
-                itemTemplate={(item) => {
-                    return <>
-                        <div className={"w-full p-3 flex gap-2"}>
+                listTemplate={(items) => {
+                    if (loading) {
+                        const skeletons = [];
+                        for (let i = 0; i < perPage; i++) {
+                            skeletons.push(
+                                <div key={i}>
+                                    <div className={"p-3 flex gap-2"}>
+                                        <div className={"flex flex-col gap-2"}>
+                                            <Skeleton height={"1.2rem"} width={"20rem"}/>
+                                            <Skeleton height={"1.2rem"} width={"15rem"}/>
+                                        </div>
+                                    </div>
+                                    <div className={"mx-3"}>
+                                        <hr className={"w-full text-gray-400 dark:text-gray-600"}/>
+                                    </div>
+                                </div>,
+                            )
+                        }
+                        return (
                             <div className={"flex flex-col gap-2"}>
-                                <a href={item.html_url} target={"_blank"}>
-                                    <h1 className={"text-2xl font-bold"}>{item.name}</h1>
-                                </a>
-                                <h3 className={"text-md"}>{new Date(Date.parse(item.published_at)).toLocaleString()}</h3>
+                                {skeletons}
                             </div>
+                        );
+                    }
+
+                    return (
+                        <div className={"flex flex-col gap-2"}>
+                            {items.map((item, i) => {
+                                return <div key={i}>
+                                    <div className={"w-full"}>
+                                        <DownloadVersionItem release={item}/>
+                                    </div>
+                                    <div className={"mx-3"}>
+                                        <hr className={"w-full text-gray-400 dark:text-gray-600"}/>
+                                    </div>
+                                </div>
+                            })}
                         </div>
-                        <hr className={"w-full mx-3 text-gray-400 dark:text-gray-600"}/>
-                    </>
+                    )
                 }}
             />
             <Paginator
