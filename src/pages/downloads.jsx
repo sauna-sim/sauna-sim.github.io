@@ -10,6 +10,7 @@ import DownloadButton from "./downloads/download_button.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
 import {Button} from "primereact/button";
+import DownloadVersions from "./downloads/download_versions.jsx";
 
 const DownloadsPage = () => {
     const [latestRelease, setLatestRelease] = useState(null);
@@ -104,6 +105,11 @@ const DownloadsPage = () => {
                     />
                 </div>
             </Card>
+        </div>
+
+        <h3 className={"mt-10 text-2xl font-bold"}>All Versions</h3>
+        <div className={"w-full mt-3"}>
+            <DownloadVersions/>
         </div>
     </div>
 }

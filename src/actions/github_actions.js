@@ -12,6 +12,21 @@ export async function getLatestRelease() {
     return response.data;
 }
 
+export async function getReleases(page, per_page) {
+    const url = `${githubApiUrl}/repos/${saunaUiRepo}/releases`;
+    const pathParams = new URLSearchParams();
+    if (page){
+        pathParams.set("page", page);
+    }
+    if (per_page) {
+        pathParams.set("per_page", per_page);
+    }
+
+    return await axios.get(url, {
+        params: pathParams
+    });
+}
+
 export const Architecture = {
     x64: {
         key: "x64",
