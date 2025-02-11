@@ -9,6 +9,7 @@ import MainLayout from "./layout.jsx";
 import {twMerge} from "tailwind-merge";
 import NotFoundPage from "./pages/not_found.jsx";
 import DownloadsPage from "./pages/downloads.jsx";
+import {DownloadStartedPage} from "./pages/downloads/download_started.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -19,9 +20,14 @@ createRoot(document.getElementById("root")).render(
         }}>
             <BrowserRouter>
                 <Routes>
-                    <Route index element={<MainLayout><HomePage/></MainLayout>}/>
-                    <Route path={"/downloads"} element={<MainLayout><DownloadsPage/></MainLayout>}/>
-                    <Route path={"*"} element={<MainLayout><NotFoundPage/></MainLayout>}/>
+                    <Route path={"/"} element={<MainLayout />}>
+                        <Route index element={<HomePage />}/>
+                        <Route path={"downloads"}>
+                            <Route index element={<DownloadsPage />} />
+                            <Route path={"started"} element={<DownloadStartedPage />} />
+                        </Route>
+                        <Route path={"*"} element={<NotFoundPage />}/>
+                    </Route>
                 </Routes>
             </BrowserRouter>
         </PrimeReactProvider>

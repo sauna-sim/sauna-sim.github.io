@@ -4,20 +4,15 @@ import WindowsLogo from '../assets/images/Windows_logo.svg?react';
 import AppleLogo from '../assets/images/Apple_logo_black.svg?react';
 import MacOsLogo from '../assets/images/macos-svgrepo-com.svg?react';
 import LinuxLogo from "../assets/images/linux-svgrepo-com.svg?react";
-import {Button} from "primereact/button";
-import {Dropdown} from "primereact/dropdown";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCloudDownload} from "@fortawesome/free-solid-svg-icons/faCloudDownload";
-import {Architecture, getDownloadsForRelease, getLatestRelease} from "../actions/github_actions.js";
-import {SplitButton} from "primereact/splitbutton";
-import {classNames} from "primereact/utils";
-import {getOs, OsTypes} from "../utils/os_utils.js";
+import {getDownloadsForRelease, getLatestRelease} from "../actions/github_actions.js";
+import {OsTypes} from "../utils/os_utils.js";
 import DownloadButton from "./downloads/download_button.jsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faArrowUpRightFromSquare} from "@fortawesome/free-solid-svg-icons/faArrowUpRightFromSquare";
+import {Button} from "primereact/button";
 
 const DownloadsPage = () => {
     const [latestRelease, setLatestRelease] = useState(null);
-    const [winInstallerArch, setWinInstallerArch] = useState("x64");
-    const [winStandaloneArch, setWinStandaloneArch] = useState("x64");
 
     useEffect(() => {
         (async () => {
@@ -25,20 +20,12 @@ const DownloadsPage = () => {
         })();
     }, []);
 
-    const getArchOptions = (setValueFunc) => (
-        Object.entries(Architecture).map(([key, value]) => ({
-            id: key,
-            label: value.label,
-            command: () => setValueFunc(key)
-        }))
-    );
-
     const getButtons = (os) => {
         const downloads = getDownloadsForRelease(latestRelease);
         const dloads = {};
 
         for (const download of downloads) {
-            if (download.os === os){
+            if (download.os === os) {
                 if (!dloads[download.type]) {
                     dloads[download.type] = {
                         downloads: []
@@ -51,10 +38,12 @@ const DownloadsPage = () => {
 
         const buttons = [];
         for (const [key, value] of Object.entries(dloads)) {
-            if (value.primary){
-                buttons.unshift(<DownloadButton key={key} downloads={value.downloads} type={key} primary={value.primary}/>);
+            if (value.primary) {
+                buttons.unshift(<DownloadButton key={key} downloads={value.downloads} type={key}
+                                                primary={value.primary}/>);
             } else {
-                buttons.push(<DownloadButton key={key} downloads={value.downloads} type={key} primary={value.primary}/>);
+                buttons.push(<DownloadButton key={key} downloads={value.downloads} type={key}
+                                             primary={value.primary}/>);
             }
         }
 
@@ -63,7 +52,7 @@ const DownloadsPage = () => {
 
     return <div className={"dark:text-white p-10 w-full flex flex-col items-center"}>
         <h1 className={"text-3xl font-bold mx-auto"}>Download Latest SaunaSim Release</h1>
-        <div className={"grid grid-cols-1 lg:grid-cols-3 gap-10 mt-5 w-full"}>
+        <div className={"grid grid-cols-1 lg:grid-cols-3 gap-10 mt-5 max-w-120 lg:w-full lg:max-w-full"}>
             <Card>
                 <div className={"flex flex-col items-center h-40 gap-4"}>
                     <WindowsLogo/>
@@ -71,6 +60,10 @@ const DownloadsPage = () => {
                 </div>
                 <div className={"mt-10 flex flex-col items-center gap-2"}>
                     {getButtons(OsTypes.WINDOWS)}
+                    <h3 className={"font-bold align-self-left"}>Notes:</h3>
+                    <p className={"text-sm dark:text-gray-400"}>The Windows app is not currently signed.
+                        This means you may get a SmartScreen filter warning when trying to run the application.
+                        You will need to click "Allow Anyway" to run the application.</p>
                 </div>
             </Card>
             <Card>
@@ -81,6 +74,12 @@ const DownloadsPage = () => {
 
                 <div className={"mt-10 flex flex-col items-center gap-2"}>
                     {getButtons(OsTypes.MACOS)}
+                    <h3 className={"font-bold align-self-left"}>Notes:</h3>
+                    <p className={"text-sm dark:text-gray-400"}>The MacOS app is not currently signed.
+                        This means you may get a popup that prevents the application from running.
+                        You will need to go to Settings &#x2192; Privacy and Security and allow SaunaSim to run</p>
+                    <p className={"text-sm dark:text-gray-400"}>Standalone MacOS builds are not signed. This means
+                        MacOS will likely block the application from running. It is recommended to use the DMG.</p>
                 </div>
             </Card>
             <Card>
@@ -91,6 +90,18 @@ const DownloadsPage = () => {
 
                 <div className={"mt-10 flex flex-col items-center gap-2"}>
                     {getButtons(OsTypes.LINUX)}
+                </div>
+
+                <div className={"mt-10 flex flex-col items-center gap-2"}>
+                    <h3 className={"text-2xl"}>Other Packages</h3>
+                    <Button
+                        className={"w-full"}
+                        icon={(options) => <FontAwesomeIcon icon={faArrowUpRightFromSquare} {...options.iconProps} />}
+                        label={"Arch User Repository (AUR)"}
+                        outlined={true}
+                        iconPos={"right"}
+                        onClick={() => window.open("https://aur.archlinux.org/packages/sauna-sim", "_blank")}
+                    />
                 </div>
             </Card>
         </div>

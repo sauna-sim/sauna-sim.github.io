@@ -1,11 +1,11 @@
 import {Menubar} from "primereact/menubar";
-import {useNavigate} from "react-router";
+import {Outlet, useNavigate} from "react-router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
 import {faGithub} from "@fortawesome/free-brands-svg-icons/faGithub";
 import {classNames} from "primereact/utils";
 
-const MainLayout = ({children}) => {
+const MainLayout = ({}) => {
     const navigate = useNavigate();
     return (
         <div className={"p-2 w-full h-screen max-w-300 mx-auto flex flex-col"}>
@@ -42,7 +42,7 @@ const MainLayout = ({children}) => {
                 </>}
             />
             <div className={"flex-grow-1 overflow-scroll mt-3"}>
-                {children}
+                <Outlet />
             </div>
         </div>
     )

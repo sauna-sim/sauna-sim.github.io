@@ -43,7 +43,7 @@ const HomePage = () => {
                        </>}
                        className={"w-full"}
                        outlined={true}
-                       onClick={() => window.open(downloadUrl, '_blank')}
+                       onClick={() => window.location.href = downloadUrl}
         />;
     }
 
