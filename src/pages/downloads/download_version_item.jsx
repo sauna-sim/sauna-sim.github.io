@@ -71,7 +71,7 @@ const DownloadVersionItem = ({release}) => {
     const asset = optionsMap[os]?.[arch]?.[type];
 
     return (
-        <div className={"p-3 flex flex-col lg:flex-row gap-2"}>
+        <div className={"p-3 flex flex-row gap-2"}>
             <div className={"flex flex-col gap-2"}>
                 <a href={release.html_url} target={"_blank"}>
                     <h1 className={"text-2xl font-bold"}>{release.name}</h1>
@@ -81,7 +81,6 @@ const DownloadVersionItem = ({release}) => {
             <div
                 className={"flex-grow-1 flex flex-col items-end md:flex-row md:items-center md:justify-end px-3 gap-2"}>
                 <Button
-                    className={"not-md:w-full"}
                     outlined={true}
                     icon={(options) => <FontAwesomeIcon icon={faDownload} {...options.iconProps} />}
                     onClick={() => setShowDownloadDialog(true)}

@@ -103,6 +103,9 @@ const DownloadsPage = () => {
                         iconPos={"right"}
                         onClick={() => window.open("https://aur.archlinux.org/packages/sauna-sim", "_blank")}
                     />
+                    <a href={"https://snapcraft.io/sauna-sim"} target={"_blank"}>
+                        <img className={"h-12"} alt="Get it from the Snap Store" src="https://snapcraft.io/en/dark/install.svg"/>
+                    </a>
                 </div>
             </Card>
         </div>

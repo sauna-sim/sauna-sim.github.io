@@ -1,7 +1,7 @@
 import {Card} from "primereact/card";
 import {Button} from "primereact/button";
 import {useEffect, useState} from "react";
-import {getDownloadForRelease, getLatestRelease} from "../actions/github_actions.js";
+import {Architecture, getDownloadForRelease, getLatestRelease} from "../actions/github_actions.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCloudArrowDown} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router";
@@ -34,11 +34,14 @@ const HomePage = () => {
                 break;
         }
 
-        const downloadUrl = getDownloadForRelease(latestRelease, os, "x64").find((dl) => dl.primary)?.url;
+        const arch = os === OsTypes.MACOS ? Architecture.arm64.key : Architecture.x64.key;
+        const archName = Architecture[arch].label;
+
+        const downloadUrl = getDownloadForRelease(latestRelease, os, arch).find((dl) => dl.primary)?.url;
 
         return <Button severity={"success"}
                        label={<>
-                           {osName} x86_64 (64-bit) {latestRelease?.name}
+                           {osName} {archName} {latestRelease?.name}
                            <FontAwesomeIcon icon={faCloudArrowDown} className={"ml-2"}/>
                        </>}
                        className={"w-full"}
