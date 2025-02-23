@@ -6,8 +6,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faDownload} from "@fortawesome/free-solid-svg-icons/faDownload";
 import {Dropdown} from "primereact/dropdown";
 import {getOs, OsTypes} from "../../utils/os_utils.js";
-import {FloatLabel} from "primereact/floatlabel";
 import {Dialog} from "primereact/dialog";
+import { useNavigate } from "react-router";
 
 const DownloadVersionItem = ({release}) => {
     const [os, setOs] = useState(null);
@@ -15,6 +15,7 @@ const DownloadVersionItem = ({release}) => {
     const [type, setType] = useState(null);
     const [optionsMap, setOptionsMap] = useState({});
     const [showDownloadDialog, setShowDownloadDialog] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const newOptionsMap = {};
@@ -69,6 +70,13 @@ const DownloadVersionItem = ({release}) => {
 
     const publishDate = moment(release.published_at);
     const asset = optionsMap[os]?.[arch]?.[type];
+
+    const onDownloadClick = (downloadUrl) => {
+        const params = new URLSearchParams({
+            url: downloadUrl
+        }).toString();
+        navigate(`/downloads/started?${params}`);
+    }
 
     return (
         <div className={"p-3 flex flex-row gap-2"}>
@@ -132,6 +140,7 @@ const DownloadVersionItem = ({release}) => {
                         icon={(options) => <FontAwesomeIcon icon={faDownload} {...options.iconProps} />}
                         label={"Download"}
                         iconPos={"right"}
+                        onClick={() => onDownloadClick(asset.url)}
                         />
                 </div>
             </Dialog>

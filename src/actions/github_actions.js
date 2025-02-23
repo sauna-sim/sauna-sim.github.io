@@ -100,7 +100,7 @@ export function getDownloadsForRelease(release) {
                 arch: arch,
                 url: asset.browser_download_url,
                 size: asset.size,
-                primary: os === OsTypes.LINUX
+                primary: false
             });
         } else if (asset.name.endsWith(".exe")) {
             // Determine arch
@@ -190,7 +190,7 @@ export function getDownloadForRelease(release, os, arch) {
                 type: "Standalone Binary",
                 url: asset.browser_download_url,
                 size: asset.size,
-                primary: os === OsTypes.LINUX
+                primary: false
             });
         } else {
             switch (os) {

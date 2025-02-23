@@ -3,7 +3,7 @@ import {Button} from "primereact/button";
 import {useEffect, useState} from "react";
 import {Architecture, getDownloadForRelease, getLatestRelease} from "../actions/github_actions.js";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCloudArrowDown} from "@fortawesome/free-solid-svg-icons";
+import {faArrowUpRightFromSquare, faCloudArrowDown} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router";
 import {getOs, OsTypes} from "../utils/os_utils.js";
 
@@ -24,13 +24,23 @@ const HomePage = () => {
             return <Button outlined={true} label={"OS Not Supported"} severity={"warning"} className={"w-full"} disabled={true} />;
         }
 
+        if (os === OsTypes.LINUX) {
+            return <Button 
+                severity={"success"}
+                label={<>
+                    Linux Flathub Package
+                    <FontAwesomeIcon icon={faArrowUpRightFromSquare} className={"ml-2"}/>
+                </>}
+                className={"w-full"}
+                outlined={true}
+                onClick={() => window.open("https://flathub.org/apps/com.saunasim.saunasim", "_blank")}
+            />;
+        }
+
         let osName = "Windows";
         switch (os){
             case OsTypes.MACOS:
                 osName = "MacOS"
-                break;
-            case OsTypes.LINUX:
-                osName = "Linux";
                 break;
         }
 

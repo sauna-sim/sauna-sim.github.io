@@ -90,6 +90,17 @@ const DownloadsPage = () => {
                 </div>
 
                 <div className={"mt-10 flex flex-col items-center gap-2"}>
+                    <Button
+                        className={"w-full"}
+                        icon={(options) => <FontAwesomeIcon icon={faArrowUpRightFromSquare} {...options.iconProps} />}
+                        label={<div>
+                                    <div>Download from Flathub</div>
+                                    <small>x86_64 (64-bit) & ARM (64-bit)</small>
+                                </div>}
+                        severity={"success"}
+                        iconPos={"right"}
+                        onClick={() => window.open("https://flathub.org/apps/com.saunasim.saunasim", "_blank")}
+                    />
                     {getButtons(OsTypes.LINUX)}
                 </div>
 
@@ -103,9 +114,14 @@ const DownloadsPage = () => {
                         iconPos={"right"}
                         onClick={() => window.open("https://aur.archlinux.org/packages/sauna-sim", "_blank")}
                     />
-                    <a href={"https://snapcraft.io/sauna-sim"} target={"_blank"}>
-                        <img className={"h-12"} alt="Get it from the Snap Store" src="https://snapcraft.io/en/dark/install.svg"/>
-                    </a>
+                    <Button
+                        className={"w-full"}
+                        icon={(options) => <FontAwesomeIcon icon={faArrowUpRightFromSquare} {...options.iconProps} />}
+                        label={"Snap Store (Canonical)"}
+                        outlined={true}
+                        iconPos={"right"}
+                        onClick={() => window.open("https://snapcraft.io/sauna-sim", "_blank")}
+                    />
                 </div>
             </Card>
         </div>

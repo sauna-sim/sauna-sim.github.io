@@ -30,13 +30,14 @@ const DownloadButton = ({type, downloads, primary, defaultArch}) => {
     return <SplitButton
         label={<div>
             <div>{DownloadType[type].label}</div>
-            <div>{Architecture[arch]?.label}</div>
+            <small>{Architecture[arch]?.label}</small>
         </div>}
         icon={(options) => <FontAwesomeIcon icon={faCloudDownload} {...options.iconProps} />}
         buttonClassName={"w-full"}
         className={"w-full"}
         model={archOptions}
         outlined={!primary}
+        severity={primary ? "success": null}
         onClick={() => onDownloadClick(downloadUrl)}
     />;
 }
