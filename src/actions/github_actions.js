@@ -205,7 +205,7 @@ export function getDownloadForRelease(release, os, arch) {
                     }
                     break;
                 case OsTypes.MACOS:
-                    if (asset.name.endsWith(`${Architecture[arch].dmg}.exe`)) {
+                    if (asset.name.endsWith(`${Architecture[arch].dmg}.dmg`)) {
                         downloads.push({
                             type: "Installer (dmg)",
                             url: asset.browser_download_url,

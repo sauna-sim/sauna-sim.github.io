@@ -56,8 +56,15 @@ const HomePage = () => {
                        </>}
                        className={"w-full"}
                        outlined={true}
-                       onClick={() => window.location.href = downloadUrl}
+                       onClick={() => onDownloadClick(downloadUrl)}
         />;
+    }
+
+    const onDownloadClick = (downloadUrl) => {
+        const params = new URLSearchParams({
+            url: downloadUrl
+        }).toString();
+        navigate(`/downloads/started?${params}`);
     }
 
     return (
